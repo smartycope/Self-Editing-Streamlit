@@ -9,7 +9,10 @@ _global = globals()
 try:
     exec(st.session_state['code']['text'], _global, _local)
 except Exception as err:
-    code_editor(st.session_state['code']['text'], key='code')
+    try:
+        code_editor(st.session_state['code']['text'], key='code')
+    except st.errors.DuplicateWidgetID:
+        pass
     st.exception(err)
 globals().update(_global)
 locals().update(_local)
